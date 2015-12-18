@@ -73,7 +73,8 @@ extension ObservableCollectionType where Index: DictionaryIndexType, Collection 
     if let index = collection.indexForKey(key) {
       var new = collection
       let oldValue = new.removeValueForKey(key)
-      next(ObservableCollectionEvent(collection: new, inserts: [], deletes: [index], updates: []))
+      //For now remove the index from the deletes until Swift bug is fixed. Could also have sent another event without deletes.
+      next(ObservableCollectionEvent(collection: new, inserts: [], deletes: [], updates: []))
       return oldValue
     } else {
       return nil
